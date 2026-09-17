@@ -40,3 +40,29 @@
 		to_chat(H, span_info("I've returned to my natural voice."))
 
 	//parent.update_appearance()
+
+/datum/component/stature_handler		//stature
+	var/original_color
+	var/second_color
+	var/natural_desc_path
+	var/second_desc_path
+	var/active_state = FALSE // FALSE = Natural, TRUE = Second
+	var/virtue_setup = FALSE
+
+/datum/component/stature_handler/proc/setup(mob/living/carbon/human/H)
+	src.original_color = H.descriptor_color
+	var/datum/descriptor_choice/VC = DESCRIPTOR_CHOICE(/datum/descriptor_choice/body)
+	var/list/current_descs = H.get_mob_descriptors()
+	for(var/path in current_descs)
+		if(path in VC.descriptors)
+			src.natural_desc_path = path
+			break
+	virtue_setup = TRUE
+
+/datum/component/stature_handler/proc/toggle_stature()
+	var/mob/living/carbon/human/H = parent
+	if(!virtue_setup)
+		setup(H)
+	if(!second_color)
+		to_chat(H, span_info("I haven't decided on my posture yet."))
+		return
