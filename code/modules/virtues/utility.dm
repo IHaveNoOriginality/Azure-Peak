@@ -300,6 +300,9 @@
 				add_verb(recipient, /mob/living/carbon/human/proc/changevoice)
 				add_verb(recipient, /mob/living/carbon/human/proc/swapvoice)
 				recipient.AddComponent(/datum/component/voice_handler)
+				add_verb(recipient, /mob/living/carbon/human/proc/changedescriptor)
+				add_verb(recipient, /mob/living/carbon/human/proc/swapdescriptor)
+				recipient.AddComponent(/datum/component/descriptor_handler)
 
 /datum/virtue/utility/performer
 	name = "Performer"
